@@ -43,7 +43,7 @@ public class HomeController {
     public JwtResponse authenticate(@RequestBody JwtRequest jwtRequest) throws Exception {
 
         try {
-            System.out.println("here: " + jwtRequest.getPhoneNumber() + " " + jwtRequest.getPassword());
+            System.out.println("here1: " + jwtRequest.getPhoneNumber() + " " + jwtRequest.getPassword());
 
             authenticationManager
                     .authenticate(new UsernamePasswordAuthenticationToken(jwtRequest.getPhoneNumber(), jwtRequest.getPassword()));
