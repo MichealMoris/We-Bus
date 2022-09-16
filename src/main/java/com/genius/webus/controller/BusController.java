@@ -66,7 +66,7 @@ public class BusController {
 
     }
 
-    @PutMapping("/{busID}/users/{userID}")
+    /*@PutMapping("/{busID}/users/{userID}")
     public Bus addUserToBus(
             @PathVariable Long busID,
             @PathVariable Long userID
@@ -89,7 +89,7 @@ public class BusController {
         }
         bus.getUsers().add(user);
         return busService.addBus(bus);
-    }
+    }*/
 
 
 }

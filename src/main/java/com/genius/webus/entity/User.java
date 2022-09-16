@@ -21,17 +21,27 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long userID;
+
     @NotBlank(message = "Full Name Cannot Be Empty!")
     private String userFullName;
+
+    @Column(unique = true)
     @NotBlank(message = "Username Cannot Be Empty!")
     private String username;
+
+    @Column(unique = true)
     @Email
     private String email;
+
+    @Column(unique = true)
     @NotBlank(message = "Phone Number Cannot Be Empty!")
     private String phoneNumber;
+
     @NotBlank(message = "Type Cannot Be Empty!")
     private String type;
+
     private boolean isAdmin;
+
     private String password;
 
     /*@ManyToOne(cascade = CascadeType.ALL)

@@ -54,7 +54,7 @@ public class UserController {
     }
 
     @PostMapping
-    public User addUsers(@Valid @RequestBody User user){
+    public User addUsers(@Valid @RequestBody User user) throws DuplicatedEntryException {
 
         return userService.addUser(user);
 
@@ -83,7 +83,7 @@ public class UserController {
         User user = userService.getUserByID(userID);
         Bus bus = busService.getBusByID(busID);
         user.setBus(bus);
-        return userService.addUser(user);
+        return userService.addUserToBus(user);
     }
 
 }

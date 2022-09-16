@@ -1,6 +1,7 @@
 package com.genius.webus.service.implemention;
 
 import com.genius.webus.entity.User;
+import com.genius.webus.error.DuplicatedEntryException;
 import com.genius.webus.error.NotFoundException;
 import com.genius.webus.repository.UserRepository;
 import com.genius.webus.service.UserService;
@@ -9,6 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,8 +43,23 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User addUser(User user) {
-        user.setPassword(getEncodedPassword(user.getPassword()));
+    public User addUser(User user) throws DuplicatedEntryException {
+
+        try {
+
+            user.setPassword(getEncodedPassword(user.getPassword()));
+            return userRepository.save(user);
+
+        }catch (Exception e){
+
+            throw new DuplicatedEntryException("User with some of this data already exists!");
+
+        }
+
+    }
+
+    @Override
+    public User addUserToBus(User user) {
         return userRepository.save(user);
     }
 

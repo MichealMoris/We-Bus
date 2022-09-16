@@ -42,7 +42,6 @@ public class JwtFilter extends OncePerRequestFilter {
         String authorization = request.getHeader("Authorization");
         String token = null;
         String phoneNumber = null;
-        System.out.println("jwt filter0");
 
         if (authorization != null && authorization.startsWith("Bearer ")){
 
@@ -55,11 +54,9 @@ public class JwtFilter extends OncePerRequestFilter {
 
             UserDetails userDetails = userAuthService.loadUserByUsername(phoneNumber);
 
-            System.out.println("jwt filter1");
 
             if (jwtUtility.validateToken(token, userDetails)){
                 User user = userService.getUserByPhoneNumber(phoneNumber);
-                System.out.println("jwt filter2");
 
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken
                         = new UsernamePasswordAuthenticationToken(userDetails, user, userDetails.getAuthorities());

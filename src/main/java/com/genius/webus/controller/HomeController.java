@@ -43,27 +43,18 @@ public class HomeController {
     public JwtResponse authenticate(@RequestBody JwtRequest jwtRequest) throws Exception {
 
         try {
-            System.out.println("here1: " + jwtRequest.getPhoneNumber() + " " + jwtRequest.getPassword());
-
             authenticationManager
                     .authenticate(new UsernamePasswordAuthenticationToken(jwtRequest.getPhoneNumber(), jwtRequest.getPassword()));
             System.out.println("here2");
         } catch (BadCredentialsException e){
+
             e.printStackTrace();
-
             throw new Exception("Invalid Credentials ", e);
-
-        } catch (Exception e1){
-
-            System.out.println(e1.getMessage());
 
         }
 
-        System.out.println("1");
         final UserDetails userDetails = userAuthService.loadUserByUsername(jwtRequest.getPhoneNumber());
-        System.out.println("2");
         final String token = jwtUtility.generateToken(userDetails);
-        System.out.println("3");
         return new JwtResponse(token);
 
     }
